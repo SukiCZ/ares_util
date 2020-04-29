@@ -83,6 +83,7 @@ def call_ares(company_id):
             'legal_form': get_legal_form(company_record.get('D:PF')),
             'creation_date': get_date_value(company_record.get('D:DV')),
             'file_number': get_file_number(company_record.get('D:ROR', {}).get('D:SZ', {})),
+            'tax_office': company_record.get('D:RRZ', {}).get('D:ZU', {}).get('D:NZU', ''),
         },
         'address': {
             'region': address.get('D:NOK'),
