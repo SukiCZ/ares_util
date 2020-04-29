@@ -3,12 +3,12 @@
 
 from __future__ import (absolute_import, division, print_function, unicode_literals)
 
-import datetime
 import logging
 import re
 import sys
 import warnings
 
+import dateutil.parser
 import requests
 import xmltodict
 from requests.exceptions import RequestException
@@ -110,7 +110,7 @@ def get_date_value(date_string):
     :type date_string: str
     :rtype: datetime.date
     """
-    return datetime.date.fromisoformat(date_string)
+    return dateutil.parser(date_string)
 
 
 def get_czech_zip_code(ares_data, full_text_address):
