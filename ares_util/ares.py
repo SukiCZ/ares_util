@@ -110,7 +110,7 @@ def get_date_value(date_string):
     :type date_string: str
     :rtype: datetime.date
     """
-    return dateutil.parser(date_string)
+    return dateutil.parser.parse(date_string)
 
 
 def get_czech_zip_code(ares_data, full_text_address):
