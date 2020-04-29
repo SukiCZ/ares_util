@@ -82,6 +82,7 @@ def call_ares(company_id):
             'company_vat_id': get_text_value(company_record.get('D:DIC')),
             'legal_form': get_legal_form(company_record.get('D:PF')),
             'creation_date': get_date_value(company_record.get('D:DV')),
+            'file_number': get_file_number(company_record.get('D:ROR', {}).get('D:SZ', {})),
         },
         'address': {
             'region': address.get('D:NOK'),
@@ -111,6 +112,14 @@ def get_date_value(date_string):
     :rtype: datetime.date
     """
     return dateutil.parser.parse(date_string)
+
+
+def get_file_number(node):
+    """
+    :type node: dict
+    :rtype: str
+    """
+    return ' '.join([node.get('D:OV', ""), node.get('D:SD', {}).get('D:T', "")])
 
 
 def get_czech_zip_code(ares_data, full_text_address):
