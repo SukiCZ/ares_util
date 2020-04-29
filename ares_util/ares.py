@@ -3,6 +3,7 @@
 
 from __future__ import (absolute_import, division, print_function, unicode_literals)
 
+import datetime
 import logging
 import re
 import sys
@@ -79,7 +80,8 @@ def call_ares(company_id):
             'company_name': get_text_value(company_record.get('D:OF')),
             'company_id': get_text_value(company_record.get('D:ICO')),
             'company_vat_id': get_text_value(company_record.get('D:DIC')),
-            'legal_form': get_legal_form(company_record.get('D:PF'))
+            'legal_form': get_legal_form(company_record.get('D:PF')),
+            'creation_date': get_date_value(company_record.get('D:DV')),
         },
         'address': {
             'region': address.get('D:NOK'),
@@ -101,6 +103,14 @@ def get_text_value(node):
     :rtype: unicode
     """
     return node.get('#text') if node else None
+
+
+def get_date_value(date_string):
+    """
+    :type date_string: str
+    :rtype: datetime.date
+    """
+    return datetime.date.fromisoformat(date_string)
 
 
 def get_czech_zip_code(ares_data, full_text_address):

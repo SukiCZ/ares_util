@@ -16,7 +16,7 @@ app = Flask(__name__)
 @app.route('/<string:post_id>', methods=['GET', 'OPTIONS'])
 def ares_json_response(post_id):
     ares_response = call_ares(company_id=post_id)
-    json_data = json.dumps(ares_response)
+    json_data = json.dumps(ares_response, default=str)
 
     return flask.Response(json_data, status=200, mimetype='application/json')
 
